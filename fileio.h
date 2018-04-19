@@ -8,24 +8,25 @@ class FileIo : public QQuickItem
     Q_OBJECT
     Q_DISABLE_COPY(FileIo)
 
-    Q_PROPERTY(QUrl path READ path WRITE setPath NOTIFY pathChanged)
+    Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
 
 public:
     FileIo(QQuickItem *parent = nullptr);
     ~FileIo();
 
-    const QUrl &path() const { return mPath; }
+    const QString &path() const { return mPath; }
 
 public slots:
-    void setPath(QUrl source);
+    void setPath(QString path);
     void write(QString text);
     void append(QString text);
+    QString readAll();
 
 signals:
-    void pathChanged(QUrl arg);
+    void pathChanged(QString arg);
 
 private:
-    QUrl mPath;
+    QString mPath;
 };
 
 #endif // FILEIO_H

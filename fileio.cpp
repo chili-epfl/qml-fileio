@@ -14,7 +14,7 @@ FileIo::~FileIo()
 {
 }
 
-void FileIo::setPath(QUrl path) {
+void FileIo::setPath(QString path) {
     mPath = path;
     emit pathChanged(mPath);
 }
@@ -25,7 +25,7 @@ static void writeToFile(QFile &file, const QString &text) {
 }
 
 void FileIo::write(QString text) {
-    QFile file(mPath.toLocalFile());
+    QFile file(mPath);
     if (file.open(QIODevice::WriteOnly))
         writeToFile(file, text);
 
@@ -33,9 +33,17 @@ void FileIo::write(QString text) {
 }
 
 void FileIo::append(QString text) {
-    QFile file(mPath.toLocalFile());
+    QFile file(mPath);
     if (file.open(QIODevice::Append))
         writeToFile(file, text);
 
     file.close();
+}
+
+QString FileIo::readAll() {
+    QFile file(mPath);
+    if (file.open(QIODevice::ReadOnly))
+        return QString::fromUtf8(file.readAll());
+
+    return QString();
 }
