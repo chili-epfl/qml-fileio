@@ -3,16 +3,16 @@
 
 #include <QQuickItem>
 
-class FileIo : public QQuickItem
+class QMLFileIo : public QQuickItem
 {
     Q_OBJECT
-    Q_DISABLE_COPY(FileIo)
+    Q_DISABLE_COPY(QMLFileIo)
 
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
 
 public:
-    FileIo(QQuickItem *parent = nullptr);
-    ~FileIo();
+    QMLFileIo(QQuickItem *parent = nullptr);
+    ~QMLFileIo();
 
     const QString &path() const { return mPath; }
 

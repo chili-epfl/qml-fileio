@@ -1,6 +1,6 @@
-#include "fileio.h"
+#include "QMLFileIo.h"
 
-FileIo::FileIo(QQuickItem *parent):
+QMLFileIo::QMLFileIo(QQuickItem *parent):
     QQuickItem(parent)
 {
     // By default, QQuickItem does not draw anything. If you subclass
@@ -10,11 +10,11 @@ FileIo::FileIo(QQuickItem *parent):
     // setFlag(ItemHasContents, true);
 }
 
-FileIo::~FileIo()
+QMLFileIo::~QMLFileIo()
 {
 }
 
-void FileIo::setPath(QString path) {
+void QMLFileIo::setPath(QString path) {
     mPath = path;
     emit pathChanged(mPath);
 }
@@ -24,7 +24,7 @@ static void writeToFile(QFile &file, const QString &text) {
     stream << text;
 }
 
-void FileIo::write(QString text) {
+void QMLFileIo::write(QString text) {
     QFile file(mPath);
     if (file.open(QIODevice::WriteOnly))
         writeToFile(file, text);
@@ -32,7 +32,7 @@ void FileIo::write(QString text) {
     file.close();
 }
 
-void FileIo::append(QString text) {
+void QMLFileIo::append(QString text) {
     QFile file(mPath);
     if (file.open(QIODevice::Append))
         writeToFile(file, text);
@@ -40,7 +40,7 @@ void FileIo::append(QString text) {
     file.close();
 }
 
-QString FileIo::readAll() {
+QString QMLFileIo::readAll() {
     QFile file(mPath);
     if (file.open(QIODevice::ReadOnly))
         return QString::fromUtf8(file.readAll());

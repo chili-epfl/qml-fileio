@@ -1,30 +1,32 @@
 TEMPLATE = lib
-TARGET = qml-fileio
+TARGET = qmlfileioplugin
+
+CONFIG += qt plugin c++11
+CONFIG -= android_install
+
 QT += qml quick
-CONFIG += plugin c++11
+
+QMAKE_CXXFLAGS -= -O2
+QMAKE_CXXFLAGS_RELEASE -= -O2
+
+QMAKE_CXXFLAGS += -O3
+QMAKE_CXXFLAGS_RELEASE += -O3
 
 TARGET = $$qtLibraryTarget($$TARGET)
-uri = ch.epfl.chili.fileio
+uri = QMLFileIo
 
 # Input
 SOURCES += \
         qml-fileio_plugin.cpp \
-        fileio.cpp
+        QMLFileIo.cpp
 
 HEADERS += \
         qml-fileio_plugin.h \
-        fileio.h
+        QMLFileIo.h
 
 DISTFILES = qmldir
 
-!equals(_PRO_FILE_PWD_, $$OUT_PWD) {
-    copy_qmldir.target = $$OUT_PWD/qmldir
-    copy_qmldir.depends = $$_PRO_FILE_PWD_/qmldir
-    copy_qmldir.commands = $(COPY_FILE) \"$$replace(copy_qmldir.depends, /, $$QMAKE_DIR_SEP)\" \"$$replace(copy_qmldir.target, /, $$QMAKE_DIR_SEP)\"
-    QMAKE_EXTRA_TARGETS += copy_qmldir
-    PRE_TARGETDEPS += $$copy_qmldir.target
-}
-
+#Install plugin library, qmldir
 qmldir.files = qmldir
 unix {
     installPath = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)

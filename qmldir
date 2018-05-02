@@ -1,2 +1,2 @@
-module ch.epfl.chili.fileio
-plugin qml-fileio
+module QMLFileIo
+plugin qmlfileioplugin
